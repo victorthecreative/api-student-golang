@@ -6,6 +6,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/victorthecreative/api-student-golang/db"
 )
 
 func main() {
@@ -30,6 +31,7 @@ func getStudents(c echo.Context) error {
 }
 
 func createStudent(c echo.Context) error {
+	db.AddStudent()
 	return c.String(http.StatusOK, "Create student")
 }
 
