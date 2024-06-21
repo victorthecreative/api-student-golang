@@ -11,11 +11,11 @@ import (
 
 type Student struct {
 	gorm.Model
-	Name   string
-	CPF    int
-	Email  string
-	Age    int
-	Active bool
+	Name   string `json:"Name"`
+	CPF    int    `json:"CPF"`
+	Email  string `json:"Email"`
+	Age    int    `json:"Age"`
+	Active bool   `json:"Active"`
 }
 
 // github.com/mattn/go-sqlite3
@@ -30,17 +30,9 @@ func Init() *gorm.DB {
 	return db
 }
 
-func AddStudent() {
+func AddStudent(student Student) {
 
 	db := Init()
-
-	student := Student{
-		Name:   "Victor",
-		CPF:    341232,
-		Email:  "victor@gmail.com",
-		Age:    23,
-		Active: true,
-	}
 
 	if result := db.Create(&student); result.Error != nil {
 		fmt.Println("Error to create student")
