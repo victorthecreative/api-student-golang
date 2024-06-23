@@ -1,11 +1,11 @@
 package api
 
 import (
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"github.com/victorthecreative/api-student-golang/db"
-	_ "github.com/victorthecreative/students-system/docs"
+	_ "github.com/victorthecreative/api-student-golang/docs"
 )
 
 type API struct {
@@ -26,7 +26,6 @@ func NewServer() *API {
 	e.Use(middleware.Recover())
 
 	database := db.Init()
-
 	studentDB := db.NewStudentHandler(database)
 
 	return &API{
@@ -38,9 +37,9 @@ func NewServer() *API {
 func (api *API) ConfigureRoutes() {
 	api.Echo.GET("/students", api.getStudents)
 	api.Echo.POST("/students", api.createStudent)
-	api.Echo.GET("/student/:id", api.getStudent)
-	api.Echo.PUT("/student/:id", api.updateStudent)
-	api.Echo.DELETE("/student/:id", api.deleteStudent)
+	api.Echo.GET("/students/:id", api.getStudent)
+	api.Echo.PUT("/students/:id", api.updateStudent)
+	api.Echo.DELETE("/students/:id", api.deleteStudent)
 	api.Echo.GET("/swagger/*", echoSwagger.WrapHandler)
 }
 

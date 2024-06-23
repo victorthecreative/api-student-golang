@@ -3,12 +3,12 @@
 API to manage 'Golang do Zero' course students
 
 Routes:
--   GET /students - List all students   
--   POST /students - Create student
--   GET /students/:id -  Get info from specific student
--   PUT /students/:id - Update student
--   DELETE /students/:id - Delete student
 
+- GET /students - List all students
+- POST /students - Create student
+- GET /students/:id -  Get info from specific student
+- PUT /students/:id - Update student
+- DELETE /students/:id - Delete student
 
 Struct Student:
 
@@ -18,4 +18,4 @@ Struct Student:
 - Age
 - Active
 
-
+Swagger: http://localhost:8080/swagger/index.html
