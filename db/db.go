@@ -18,7 +18,10 @@ type Student struct {
 	Active bool   `json:"Active"`
 }
 
-// github.com/mattn/go-sqlite3
+type StudentHandler struct {
+	DB *gorm.DB
+}
+
 func Init() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
 	if err != nil {
@@ -30,14 +33,24 @@ func Init() *gorm.DB {
 	return db
 }
 
-func AddStudent(student Student) {
+func NewStudentHandler(db *gorm.DB) *StudentHandler {
+	return &StudentHandler{DB: db}
+}
 
-	db := Init()
+func (s *StudentHandler) AddStudent(student Student) error {
 
-	if result := db.Create(&student); result.Error != nil {
-		fmt.Println("Error to create student")
+	if result := s.DB.Create(&student); result.Error != nil {
+		return result.Error
 	}
 
 	fmt.Println("Create student!")
+	return nil
+}
 
+func (s *StudentHandler) GetStudents() ([]Student, error) {
+
+	students := []Student{}
+
+	err := s.DB.Find(&students).Error
+	return students, err
 }
